@@ -1,0 +1,13 @@
+{
+  "module_id": "tuneni:gas-test",
+  "visibility": "public",
+  "url": "https://github.com/azbones/gas_sensor",
+  "description": "",
+  "models": [
+    {
+      "api": "rdk:component:sensor",
+      "model": "rdk:component:sensor"
+    }
+  ],
+  "entrypoint": "exec.sh"
+}

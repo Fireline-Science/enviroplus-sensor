@@ -1,0 +1,13 @@
+{
+  "module_id": "tuneni:enviro-sensor",
+  "visibility": "private",
+  "url": "",
+  "description": "This is the module to use the enviroplus sensor to collect gas data.",
+  "models": [
+    {
+      "api": "rdk:component:sensor",
+      "model": "tuneni:sensor:enviroplus"
+    }
+  ],
+  "entrypoint": "exec.sh"
+}
