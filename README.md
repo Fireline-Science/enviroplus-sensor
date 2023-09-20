@@ -1,29 +1,63 @@
-# Python example module
+# Enviroplus Viam Sensor Module
 
-This is an example of a Viam module using our Python SDK. This repo shows how to:
+This repo used the Viam example sensor module to create a Python sensor for use in Viam robots.
 
-- Use a Python virtualenv to install your module's dependencies on the robot
-- Write a simple module in Python
-- Use CI to automatically publish a new version when you create a Github release
 
-## Forking this repo
+### Deploying to Viam
 
-If you want to copy this repo and run it yourself, you'll need to make a few changes:
+1. Inside the repo, use the Viam CLI to create a meta.json template and register the module in the Viam registry/
 
-### Create your own meta.json
+```bash
+viam module create --name "enviro-sensor" --public-namespace "tuneni"
+```
+2. Once this is created, you need to update the `meta.json` to have the relevant fields as follows:
+```json
+{
+  "module_id": "tuneni:gas-test",
+  "visibility": "public",
+  "url": "https://github.com/azbones/gas_sensor",
+  "description": "This is the mddule that uses the enviroplus lib and pi hat to collect gas readings.",
+  "models": [
+    {
+      "api": "rdk:component:sensor",
+      "model": "rdk:component:sensor"
+    }
+  ],
+  "entrypoint": "exec.sh"
+}
+```
+3. Next, you need to update the registry with:
+```bash
+viam module update
+```
+4. Then, you need to tar the files Viam needs to deploy on the robot as follows:
+```bash
+tar -czf module.tar.gz exec.sh requirements.txt src .env setup.sh
+```
+5. Then, you need to upload the file tar along with a version and platform which matches the OS of the robot for this file package:
+```bash
+viam module upload --version "0.0.1" --platform "linux/arm64" module.tar.gz
+```
+6. Next, to "deploy" the module to the robot, you go to the Viam app and create a new sensor component from the Viam registry. Note that the registry often does not display the updated sensor, so you may have to reload the page.
 
-1. Get the Viam CLI (todo: link to docs)
-1. Rename the existing `meta.json` to `meta.json.old`
-1. Use `viam module create` to create a copy in your own account
-1. Copy all the fields except `name` from meta.json.old (your choice whether to make it public or private)
 
-### Change all references to the `viam` namespace
+![create component](./images/create_component.png)
 
-You'll need to change all the namespace references in the codebase ('viam') to the namespace of your organization on Viam.
+7. To set up the data collection, you need to configure the data capture configuration as shown below:
 
-1. You should already have done this in meta.json above
-1. In the "model" field in meta.json (on line 9 when this was written)
-1. In the ModelFamily in gas_sensor.py, [around here](src/enviro_sensor.py#L13).
+
+![configure data capture](./images/component_attributes.png)
+
+8. The module should be configured and available using the most recent version. This will look like the following:
+
+
+![module](./images/module.png)
+
+9. If this is configured correctly, you should see a final message in the robot log like the following:
+
+```
+2023-09-20T21:47:24.257Z   info   robot_server.process.tuneni_pms5003-sensor_/root/.viam/packages/.data/module/8754658a-ccc0-4bab-8fd5-2dcd888d6b04-pms5003-sensor-0_0_3/exec.sh.StdOut   pexec/managed_process.go:224   \_ 2023-09-20 22:47:24,257 [33;36mINFO[0m viam.rpc.server (server.py:111) Serving on /tmp/viam-module-1486850233/tuneni_pms5003-sensor.sock 
+```
 
 ### Set a secret if you want to use Github CI
 
