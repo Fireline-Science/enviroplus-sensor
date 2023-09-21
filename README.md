@@ -1,6 +1,6 @@
 # Enviroplus Viam Sensor Module
 
-This repo used the Viam example sensor module to create a Python sensor for use in Viam robots.
+This repo used the Viam example sensor module to create a Python sensor for use in Viam robots. The sensor is like this one: https://shop.pimoroni.com/products/enviro?variant=31155658457171. We use the enviroplus Python library: https://github.com/pimoroni/enviroplus-python.
 
 
 ### Deploying to Viam
@@ -20,7 +20,7 @@ viam module create --name "enviro-sensor" --public-namespace "tuneni"
   "models": [
     {
       "api": "rdk:component:sensor",
-      "model": "rdk:component:sensor"
+      "model": "tuneni:sensor:enviroplus"
     }
   ],
   "entrypoint": "exec.sh"
