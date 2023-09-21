@@ -56,9 +56,20 @@ viam module upload --version "0.0.1" --platform "linux/arm64" module.tar.gz
 9. If this is configured correctly, you should see a final message in the robot log like the following:
 
 ```
-2023-09-20T21:47:24.257Z   info   robot_server.process.tuneni_pms5003-sensor_/root/.viam/packages/.data/module/8754658a-ccc0-4bab-8fd5-2dcd888d6b04-pms5003-sensor-0_0_3/exec.sh.StdOut   pexec/managed_process.go:224   \_ 2023-09-20 22:47:24,257 [33;36mINFO[0m viam.rpc.server (server.py:111) Serving on /tmp/viam-module-1486850233/tuneni_pms5003-sensor.sock 
+2023-09-20T21:47:24.257Z info robot_server.process.tuneni_pms5003-sensor_/root/.viam/packages/.data/module/8754658a-ccc0-4bab-8fd5-2dcd888d6b04-pms5003-sensor-0_0_3/exec.sh.StdOut   pexec/managed_process.go:224   \_ 2023-09-20 22:47:24,257 [33;36mINFO[0m viam.rpc.server (server.py:111) Serving on /tmp/viam-module-1486850233/tuneni_pms5003-sensor.sock 
 ```
+
+10. Finally, there are at least three ways to get the data if the robot is on and sending data. First, if the data collection function is configured and turned on via the component "data capture configuration", you can go to the Data tab at the top of the Viam app to see the following:
+
+![data tab](./images/data_tab.JPG)
+
+You can also navigate to the "control" tab for the robot to call the get_readings API via the UI like this:
+
+![control tab](./images/control_tab.JPG)
+
+Finally, you can use the API via the client sdks. I will post more about that as I make progress.
 
 ### Set a secret if you want to use Github CI
 
 Instructions for setting the secret are [here](https://github.com/viamrobotics/upload-module#setting-cli-config-secret).
+
