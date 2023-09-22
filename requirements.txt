@@ -2,3 +2,6 @@ viam-sdk
 enviroplus
 RPi.GPIO
 smbus
+Pillow
+ST7735
+numpy

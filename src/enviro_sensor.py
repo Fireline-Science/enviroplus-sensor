@@ -8,6 +8,9 @@ from viam.resource.types import Model, ModelFamily
 
 from enviroplus import gas
 
+import ST7735
+from PIL import Image, ImageDraw, ImageFont
+
 class MySensor(Sensor):
     # Subclass the Viam Arm component and implement the required functions
     MODEL: ClassVar[Model] = Model(ModelFamily("tuneni", "sensor"), "enviroplus")
@@ -25,13 +28,39 @@ class MySensor(Sensor):
 
         data = {'nh3': nh3_readings, 'ox': ox_readings, 'red': red_readings}
 
+        self.lcd_status("Sending GAS readings.")
         return data
+
+    def lcd_status(self, text):
+        # Create ST7735 LCD display class
+        st7735 = ST7735.ST7735(
+            port=0,
+            cs=1,
+            dc=9,
+            backlight=12,
+            rotation=270,
+            spi_speed_hz=10000000
+        )
+
+        # Initialize display
+        st7735.begin()
+        WIDTH = st7735.width
+        HEIGHT = st7735.height
+
+        # Set up canvas
+        img = Image.new('RGB', (WIDTH, HEIGHT), color=(0, 0, 0))
+        draw = ImageDraw.Draw(img)
+
+        # Write and display the text at the top in white
+        draw.text((0, 0), text, fill=(255, 255, 255))
+        st7735.display(img)
 
 
 async def main():
     gas = MySensor(name="gas")
     signal = await gas.get_readings()
     print(signal)
+
 
 if __name__ == '__main__':
     asyncio.run(main())
