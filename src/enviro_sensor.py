@@ -29,6 +29,7 @@ class MySensor(Sensor):
         data = {'nh3': nh3_readings, 'ox': ox_readings, 'red': red_readings}
         screen_text = "\n".join(f"{key}: {value}" for key, value in data.items())
         self.lcd_status("Sending GAS readings: \n{}".format(screen_text))
+
         return data
 
     def lcd_status(self, text):
