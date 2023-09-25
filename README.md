@@ -30,8 +30,9 @@ viam module create --name "enviro-sensor" --public-namespace "tuneni"
 ```bash
 viam module update
 ```
-4. Then, you need to tar the files Viam needs to deploy on the robot as follows:
+Then, you need to tar the files Viam needs to deploy on the robot as follows. Note that you will have to make sure the file permissions allow the shell scripts and python scripts to be executed.
 ```bash
+chmod 755 *.sh ./src
 tar -czf module.tar.gz exec.sh requirements.txt src .env setup.sh
 ```
 5. Then, you need to upload the file tar along with a version and platform which matches the OS of the robot for this file package:
