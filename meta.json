@@ -1,6 +1,6 @@
 {
   "module_id": "tuneni:enviro-sensor",
-  "visibility": "private",
+  "visibility": "public",
   "url": "",
   "description": "This is the module to use the enviroplus sensor to collect gas data.",
   "models": [
