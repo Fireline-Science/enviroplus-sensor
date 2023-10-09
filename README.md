@@ -3,7 +3,10 @@
 This repo used the Viam example sensor module to create a Python sensor for use in Viam robots. The sensor is like this one: https://shop.pimoroni.com/products/enviro?variant=31155658457171. We use the enviroplus Python library: https://github.com/pimoroni/enviroplus-python.
 
 
-### Deploying to Viam
+## Creating a new Viam module in the Viam registry
+
+This section details how to create a new Viam module using their registry. If you just want to use the existing
+module from the registry, you can skip this section.
 
 1. Inside the repo, use the Viam CLI to create a meta.json template and register the module in the Viam registry/
 
@@ -39,32 +42,35 @@ tar -czf module.tar.gz exec.sh requirements.txt src .env setup.sh
 ```bash
 viam module upload --version "0.0.1" --platform "linux/arm64" module.tar.gz
 ```
-6. Next, to "deploy" the module to the robot, you go to the Viam app and create a new sensor component from the Viam registry. Note that the registry often does not display the updated sensor, so you may have to reload the page.
+
+## Using the module from the Viam registry
+
+1. Next, to "deploy" the module to the robot, you go to the Viam app and create a new sensor component from the Viam registry. Note that the registry often does not display the updated sensor, so you may have to reload the page.
 
 
 ![create component](./images/create_component.png)
 
-7. To set up the data collection, you need to configure the data capture configuration as shown below:
+2. To set up the data collection, you need to configure the data capture configuration as shown below:
 
 
 ![configure data capture](./images/component_attributes.png)
 
-8. The module should be configured and available using the most recent version. This will look like the following:
+3. The module should be configured and available using the most recent version. This will look like the following:
 
 
 ![module](./images/module.png)
 
-9. If this is configured correctly, you should see a final message in the robot log like the following:
+4. If this is configured correctly, you should see a final message in the robot log like the following:
 
 ```
 2023-09-20T21:47:24.257Z info robot_server.process.tuneni_pms5003-sensor_/root/.viam/packages/.data/module/8754658a-ccc0-4bab-8fd5-2dcd888d6b04-pms5003-sensor-0_0_3/exec.sh.StdOut   pexec/managed_process.go:224   \_ 2023-09-20 22:47:24,257 [33;36mINFO[0m viam.rpc.server (server.py:111) Serving on /tmp/viam-module-1486850233/tuneni_pms5003-sensor.sock 
 ```
 
-10. Given the enviroplus hat has a small LCD screen, this code prints a message to this screen each time the `get_readings` function is called. This is is what that looks like:
+5. Given the enviroplus hat has a small LCD screen, this code prints a message to this screen each time the `get_readings` function is called. This is is what that looks like:
 
 ![api call message](./images/enviro_lcd.jpeg)
 
-11. Finally, there are at least three ways to get the data if the robot is on and sending data. First, if the data collection function is configured and turned on via the component "data capture configuration", you can go to the Data tab at the top of the Viam app to see the following:
+6. Finally, there are at least three ways to get the data if the robot is on and sending data. First, if the data collection function is configured and turned on via the component "data capture configuration", you can go to the Data tab at the top of the Viam app to see the following:
 
 ![data tab](./images/data_tab.JPG)
 
