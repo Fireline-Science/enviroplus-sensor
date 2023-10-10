@@ -1,7 +1,7 @@
 {
   "module_id": "tuneni:enviro-sensor",
   "visibility": "public",
-  "url": "",
+  "url": "https://github.com/Fireline-Science/enviroplus-sensor",
   "description": "This is the module to use the enviroplus sensor to collect gas data.",
   "models": [
     {
