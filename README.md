@@ -2,6 +2,7 @@
 
 This repo used the Viam example sensor module to create a Python sensor for use in Viam robots. The sensor is like this one: https://shop.pimoroni.com/products/enviro?variant=31155658457171. We use the enviroplus Python library: https://github.com/pimoroni/enviroplus-python.
 
+The current code is only collecting the readings from the MICS6814 analog gas sensor and reports the values for NH3, oxidising, and reducing readings. This was our first interest, but it should be fairly straightforward to add readings from the other sensors with small changes.
 
 ## Creating a new Viam module in the Viam registry
 
